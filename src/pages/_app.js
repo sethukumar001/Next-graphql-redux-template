@@ -7,21 +7,13 @@ import Nprogress from "nprogress";
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
 import { Provider } from "react-redux";
-import { ThemeProvider as Styledtheme } from "styled-components";
-import { theme } from "theme";
-import { ThemeProvider } from "theme-ui";
 import { initializeApollo, useApollo } from "../apollo";
-import { initializeStore, useStore } from "../redux";
+import initializeStore from "../redux";
 import cookies from "next-cookies";
 
-Router.events.on("routeChangeStart", () => {
-  // console.log("From nprogress", url);
-  Nprogress.start();
-});
-Router.events.on("routeChangeComplete", () => Nprogress.done());
-Router.events.on("routeChangeError", () => Nprogress.done());
+
 const MyApp = ({ Component, pageProps }) => {
-  const store = useStore(pageProps.store);
+  const store = initializeStore(pageProps.store);
   const apolloClient = useApollo(pageProps.apollo);
   // const user = pageProps.user;
   return (
@@ -31,11 +23,7 @@ const MyApp = ({ Component, pageProps }) => {
       </Head>
       <Provider store={store}>
         <ApolloProvider client={apolloClient}>
-          <ThemeProvider theme={theme}>
-            <Styledtheme theme={theme}>
-              <Component {...pageProps} />
-            </Styledtheme>
-          </ThemeProvider>
+          <Component {...pageProps} />
         </ApolloProvider>
       </Provider>
     </Fragment>

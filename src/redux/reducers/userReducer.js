@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { SET_USER, LOGOUT } from "../types";
+import { SET_USER, LOGOUT } from "../constants/types";
 
 export const userState = {
   single: null,
@@ -11,6 +11,7 @@ export const userState = {
 };
 
 const userReducer = (state = userState, { type, payload }) => {
+  console.log(type)
   switch (type) {
     case SET_USER:
       return {

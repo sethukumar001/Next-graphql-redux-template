@@ -1,39 +1,31 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { useMemo } from "react";
-import { combineReducers } from "redux";
-import user, { userState } from "./reducers/userReducer";
+  
+import { applyMiddleware, createStore } from "redux";
+import rootReducer from "./reducers";
+import logger from "redux-logger";
+import thunk from "redux-thunk";
+import withRedux, { createWrapper } from "next-redux-wrapper";
 
-let store;
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-const initialState = {
-  user: userState,
-};
+const initializeStore = (initialState = {}) => {
+  const persistConfig = {
+    key: "root",
+    storage: storage,
+  };
 
-const reducer = combineReducers({ user });
-
-export const initStore = (preloadedState = initialState) => {
-  return configureStore({
-    reducer,
-    preloadedState,
-  });
-};
-
-export const initializeStore = (preloadedState) => {
-  let _store = store ?? initStore(preloadedState);
-  if (preloadedState && store) {
-    _store = initStore({
-      ...store.getState(),
-      ...preloadedState,
-    });
-    store = undefined;
-  }
-  if (typeof window === "undefined") return _store;
-  if (!store) store = _store;
-
-  return _store;
-};
-
-export const useStore = (initialState) => {
-  const store = useMemo(() => initializeStore(initialState), [initialState]);
+  const pReducer = persistReducer(persistConfig, rootReducer);
+  const store = createStore(
+    pReducer,
+    initialState,
+    applyMiddleware(thunk,
+      //  logger
+       )
+  );
+  store.__persistor = persistStore(store);
   return store;
 };
+
+export default initializeStore;
+
+
