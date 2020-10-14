@@ -15,12 +15,9 @@ import cookies from "next-cookies";
 const MyApp = ({ Component, pageProps }) => {
   const store = initializeStore(pageProps.store);
   const apolloClient = useApollo(pageProps.apollo);
-  // const user = pageProps.user;
+
   return (
     <Fragment>
-      <Head>
-        <link rel="stylesheet" href="/nprogress.css" />
-      </Head>
       <Provider store={store}>
         <ApolloProvider client={apolloClient}>
           <Component {...pageProps} />
@@ -44,7 +41,6 @@ MyApp.getInitialProps = async (appctx) => {
   if (accessToken.token) {
     token = accessToken.token;
     apolloClient = initializeApollo(null, token);
-
     try {
       const { data } = await apolloClient.query({
         query: AUTH,

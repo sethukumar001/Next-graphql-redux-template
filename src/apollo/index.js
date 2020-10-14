@@ -14,7 +14,7 @@ if (!process.browser) {
 
 function create(initialState, token) {
   const httpLink = createHttpLink({
-    uri: process.env.baseUrl,
+    uri: process.env.NEXT_PUBLIC_API_URL,
     credentials: "same-origin",
   });
 
