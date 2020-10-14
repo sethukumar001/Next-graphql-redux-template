@@ -1,5 +1,6 @@
 import gql from "graphql-tag";
 
+// eg. mutation
 export const GET_USERS_MUTATION = gql`
   query {
     getUsers {
@@ -12,15 +13,20 @@ export const GET_USERS_MUTATION = gql`
   }
 `;
 
-export const GET_JUDGE_QUERY = gql`
+// eg. query
+export const GET_RESTUARANT_LIST = gql`
   query {
-    getJudges {
-      name
-      bio
-      _id
+    restaurants {
+     image{
+       _id
+       height
+       width
+       url
+     }
     }
   }
 `;
+
 
 export const GET_AUTH = gql`
   query Me($token: String) {
@@ -44,162 +50,6 @@ export const AUTH = gql`
       isActive
       _id
       role
-    }
-  }
-`;
-
-export const GET_REPORTS_QUERY = gql`
-  {
-    getReports {
-      _id
-      court
-      suit_no
-      title
-      appellant
-      respondent
-      c_appellant
-      c_respondent
-      appeal
-      issues_of_law
-      summary
-      determination
-      date
-      judges
-      vol
-      year
-      ratios
-      cases_cited
-      books_cited
-      judgement
-      likes
-      caseRef
-      slug
-      createdAt
-      comments {
-        _id
-        content
-        likes
-        createdAt
-        author {
-          name
-          _id
-        }
-      }
-    }
-  }
-`;
-
-export const GET_REPORT_QUERY = gql`
-  query GetReport($slug: String) {
-    getReport(slug: $slug) {
-      _id
-      court
-      suit_no
-      title
-      appellant
-      respondent
-      c_appellant
-      c_respondent
-      appeal
-      issues_of_law
-      summary
-      determination
-      date
-      judges
-      vol
-      year
-      ratios
-      cases_cited
-      books_cited
-      judgement
-      likes
-      caseRef
-      slug
-      createdAt
-      comments {
-        _id
-        content
-        likes
-        createdAt
-        author {
-          name
-          _id
-        }
-      }
-    }
-  }
-`;
-
-// Practice note
-
-export const GETNOTECATS_QUERY = gql`
-  {
-    getNoteCats {
-      _id
-      name
-      slug
-    }
-  }
-`;
-
-export const GETNOTES_QUERY = gql`
-  {
-    getNotes {
-      _id
-      topic
-      category {
-        _id
-        name
-      }
-      questions {
-        _id
-      }
-    }
-  }
-`;
-
-export const GETNOTE_QUERY = gql`
-  query GetNote($_id: ID) {
-    getNote(_id: $_id) {
-      _id
-      questions {
-        _id
-        question
-        answer
-      }
-    }
-  }
-`;
-
-export const GET_NOTES_BY_CAT = gql`
-  query GetNoteByCat($category: String) {
-    getNotesByCat(category: $category) {
-      _id
-      topic
-    }
-  }
-`;
-
-export const GET_NOTE_CAT = gql`
-  query GetNoteCat($slug: String) {
-    getNoteCat(slug: $slug) {
-      _id
-      name
-      notes {
-        _id
-        slug
-        topic
-      }
-    }
-  }
-`;
-
-export const GET_NOTE_QUESTIONS = gql`
-  {
-    getNoteQuestions {
-      note_id
-      question
-      answer
     }
   }
 `;

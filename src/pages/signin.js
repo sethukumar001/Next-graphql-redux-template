@@ -16,6 +16,7 @@ class signin extends Component {
         console.log(this.state)
     }
     render() {
+        
         return (
             <div>
                 Email:<input type="email" value={this.state.email} onChange={(e) => { this.setState({ email: e.target.value }) }}></input><br></br>

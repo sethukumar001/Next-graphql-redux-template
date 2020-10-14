@@ -11,7 +11,6 @@ export const userState = {
 };
 
 const userReducer = (state = userState, { type, payload }) => {
-  console.log(type)
   switch (type) {
     case SET_USER:
       return {

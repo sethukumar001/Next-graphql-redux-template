@@ -1,5 +1,5 @@
 import { ApolloProvider } from "@apollo/react-hooks";
-import { AUTH } from "apollo/queries";
+import { AUTH,GET_RESTUARANT_LIST } from "apollo/queries";
 import App from "next/app";
 import Head from "next/head";
 import Router from "next/router";
